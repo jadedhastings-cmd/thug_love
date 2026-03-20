@@ -16,27 +16,25 @@ with open(os.path.join(BASE_DIR,"love_songs.csv"),"r", encoding="latin-1") as f:
 
 try:
     with open(os.path.join(BASE_DIR,"state.txt"), 'r') as f:
-        # File exists and is open
         index = int(f.read())
 except FileNotFoundError:
-    # File does not exist
     index = 0
     with open(os.path.join(BASE_DIR,"state.txt"),"w") as f:
         f.write(str(index))
-        
-song = songs[index]
 
-new_song = song["Title"].replace("love","thug").replace("Love","Thug").replace("lovi","thuggi").replace("Lovi","Thuggi")
-
-post_text = f'"{new_song}", {song["Artist"]}, {song["Year"]}'
-
-client = Client()
-client.login(handle, password)
-client.send_post(post_text)
-
-index += 1
 if index >= len(songs):
-    index = 0
+    print("All songs have been posted.")
+else:
+    song = songs[index]
 
-with open(os.path.join(BASE_DIR,"state.txt"),"w") as f:
-    f.write(str(index))
+    new_song = song["Title"].replace("love","thug").replace("Love","Thug").replace("lovi","thuggi").replace("Lovi","Thuggi")
+
+    post_text = f'"{new_song}", {song["Artist"]}, {song["Year"]}'
+
+    client = Client()
+    client.login(handle, password)
+    client.send_post(post_text)
+
+    index += 1
+    with open(os.path.join(BASE_DIR,"state.txt"),"w") as f:
+        f.write(str(index))
