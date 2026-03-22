@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: pip install atproto python-dotenv
 
+      - name: Pull latest state
+        run: git pull --rebase
+
       - name: Run bot
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
